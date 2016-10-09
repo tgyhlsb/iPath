@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		474B6CD6EA1F914C16F6C373 /* Pods_iPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7F5FF8BEB31991F05C3813C /* Pods_iPath.framework */; };
 		5AE846561DAAE32C002A4C1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE846551DAAE32C002A4C1D /* AppDelegate.swift */; };
 		5AE8466E1DAAE38A002A4C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846681DAAE38A002A4C1D /* Assets.xcassets */; };
 		5AE8466F1DAAE38A002A4C1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846691DAAE38A002A4C1D /* LaunchScreen.storyboard */; };
@@ -22,6 +23,9 @@
 		5AE8466D1DAAE38A002A4C1D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AE846761DAAE464002A4C1D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		5AE846771DAAE464002A4C1D /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
+		C7F5FF8BEB31991F05C3813C /* Pods_iPath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iPath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E04FBEC0B7732654C46F9EF5 /* Pods-iPath.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPath.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iPath/Pods-iPath.debug.xcconfig"; sourceTree = "<group>"; };
+		E78E12B739373C4F98170912 /* Pods-iPath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iPath.release.xcconfig"; path = "Pods/Target Support Files/Pods-iPath/Pods-iPath.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				474B6CD6EA1F914C16F6C373 /* Pods_iPath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				5AE846541DAAE32C002A4C1D /* iPath */,
 				5AE846531DAAE32C002A4C1D /* Products */,
+				F1549D5CE85D7D95AF289314 /* Pods */,
+				F6DDFCEF40F0DB2715E46957 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +111,23 @@
 			path = RootViewController;
 			sourceTree = "<group>";
 		};
+		F1549D5CE85D7D95AF289314 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E04FBEC0B7732654C46F9EF5 /* Pods-iPath.debug.xcconfig */,
+				E78E12B739373C4F98170912 /* Pods-iPath.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F6DDFCEF40F0DB2715E46957 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7F5FF8BEB31991F05C3813C /* Pods_iPath.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,9 +135,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5AE846641DAAE32C002A4C1D /* Build configuration list for PBXNativeTarget "iPath" */;
 			buildPhases = (
+				3DD95F8303DC336807F0ED1F /* [CP] Check Pods Manifest.lock */,
 				5AE8464E1DAAE32C002A4C1D /* Sources */,
 				5AE8464F1DAAE32C002A4C1D /* Frameworks */,
 				5AE846501DAAE32C002A4C1D /* Resources */,
+				A63E5E9ED14CC135B170A428 /* [CP] Embed Pods Frameworks */,
+				FBB5E1FB4E11C88DC9C2FCA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,6 +198,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3DD95F8303DC336807F0ED1F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A63E5E9ED14CC135B170A428 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iPath/Pods-iPath-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBB5E1FB4E11C88DC9C2FCA9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iPath/Pods-iPath-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5AE8464E1DAAE32C002A4C1D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -213,6 +288,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -263,6 +339,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -290,7 +367,9 @@
 		};
 		5AE846651DAAE32C002A4C1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E04FBEC0B7732654C46F9EF5 /* Pods-iPath.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/iPath/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -302,7 +381,9 @@
 		};
 		5AE846661DAAE32C002A4C1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E78E12B739373C4F98170912 /* Pods-iPath.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "$(SRCROOT)/iPath/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
