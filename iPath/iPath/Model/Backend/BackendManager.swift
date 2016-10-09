@@ -43,13 +43,17 @@ class BackendManager {
         }
     }
     
-    public func fetchRoute(token: String, completion: @escaping (Result<Any>) -> Void) {
+    public func fetchRoute(token: String, completion: @escaping (Result<Route>) -> Void) {
         self.request(.route(token: token)) { (response) in
             switch response.result {
             case .success(let data):
-                print(data)
+                guard let json = data as? NSArray else {
+                    return completion(.failure(error: nil))
+                }
+                let route = Route(json: json)
+                return completion(.success(data: route))
             case .failure(let error):
-                print(error)
+                completion(.failure(error: error))
             }
         }
     }
