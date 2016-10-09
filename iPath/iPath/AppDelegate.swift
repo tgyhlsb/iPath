@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let backend = BackendManager(domain: "https://wingz-hiring-test.herokuapp.com", secret: "Ohe0CvYvMc86pJfv7k6u")
+        backend.requestNewRoute() { result in
+            switch result {
+            case .success(let token):
+                backend.fetchRoute(token: token) { result in
+                    print(result)
+                }
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
         
         self.window = UIWindow()
         self.window?.rootViewController = RootViewController()
