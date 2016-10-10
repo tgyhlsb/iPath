@@ -15,6 +15,7 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
     // MARK: - INTERNAL -
     
     internal func initializeTableView() {
+        self.tableView.registerReusableCell(RouteTableViewCell.self)
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
@@ -40,18 +41,9 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "route")
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: "route")
-        }
-        let route = self.route(for: indexPath)!
-        cell?.textLabel?.text = self.text(from: route)
-        
-        return cell!
-    }
-    
-    private func text(from route: Route) -> String {
-        return "From \(route.start.name) to \(route.end.name)"
+        let cell: RouteTableViewCell = tableView.dequeueReusableCell(indexPath: indexPath)
+        cell.route = self.route(for: indexPath)!
+        return cell
     }
     
     // MARK: UITableViewDelegate

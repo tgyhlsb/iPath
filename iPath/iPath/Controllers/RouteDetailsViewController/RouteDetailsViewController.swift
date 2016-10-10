@@ -31,5 +31,16 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    // MARK:
+    // MARK: view life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = self.title(from: self.route)
+    }
+    
+    // MARK: Helpers
+    
+    private func title(from route: Route) -> String {
+        return "\(route.places.count) places"
+    }
 }

@@ -45,8 +45,9 @@ class RoutePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.initializeTableView()
+        self.title = "Routes"
         self.navigationItem.rightBarButtonItem = self.addButton
+        self.initializeTableView()
     }
     
     // MARK: Handlers

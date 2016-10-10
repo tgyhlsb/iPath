@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Route {
+class Route: Equatable {
     
     // MARK: - PUBLIC -
     
@@ -29,6 +29,7 @@ class Route {
         }
     }
     
+    public let token: String
     public let places: [Place]
     
     public var start: Place {
@@ -39,10 +40,17 @@ class Route {
         return self.places.last!
     }
     
+    // MARK: Equatable
+    
+    public static func ==(lhs: Route, rhs: Route) -> Bool {
+        return lhs.token == rhs.token
+    }
+    
     // MARK: - INTERNAL -
     
-    internal init?(json: NSArray) {
+    internal init?(token: String, json: NSArray) {
         guard json.count >= 2 else { return nil }
+        self.token = token
         self.places = json.map { Place(data: $0 as! NSDictionary) }
     }
     

@@ -44,7 +44,7 @@ class BackendManager {
             case .failure(let err):
                 completion(.failure(error: err))
             case .success(let data):
-                completion(self.route(from: data))
+                completion(self.route(token: token, from: data))
             }
         }
     }
@@ -82,8 +82,8 @@ class BackendManager {
         return .success(data: token)
     }
     
-    private func route(from json: NSArray) -> Result<Route> {
-        guard let route = Route(json: json) else {
+    private func route(token: String, from json: NSArray) -> Result<Route> {
+        guard let route = Route(token: token, json: json) else {
             return .failure(error: "Failed to instantiate Route.")
         }
         return .success(data: route)
