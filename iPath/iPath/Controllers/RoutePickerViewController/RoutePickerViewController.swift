@@ -24,6 +24,11 @@ class RoutePickerViewController: UIViewController {
     
     internal var routes = [Route]()
     
+    internal func selectRoute(_ route: Route, animated: Bool) {
+        let destination = RouteDetailsViewController(route: route)
+        self.navigationController?.pushViewController(destination, animated: animated)
+    }
+    
     // MARK: - PRIVATE -
     
     private let backend: BackendManager

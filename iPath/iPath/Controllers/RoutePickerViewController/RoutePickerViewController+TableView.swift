@@ -29,7 +29,7 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
     
     // MARK: - PRIVATE -
     
-    // MARK:
+    // MARK: UITableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -44,7 +44,7 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: "route")
         }
-        let route = self.routes[indexPath.row]
+        let route = self.route(for: indexPath)!
         cell?.textLabel?.text = self.text(from: route)
         
         return cell!
@@ -54,5 +54,18 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
         return "From \(route.start.name) to \(route.end.name)"
     }
     
-    // AMRK:
+    // MARK: UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let route = self.route(for: indexPath) else { return }
+        self.selectRoute(route, animated: true)
+    }
+    
+    // MARK: Helpers
+    
+    private func route(for indexPath: IndexPath) -> Route? {
+        let index = indexPath.row
+        guard index >= 0 && index < self.routes.count else { return nil }
+        return self.routes[indexPath.row]
+    }
 }
