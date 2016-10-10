@@ -11,7 +11,7 @@ import Alamofire
 
 public enum Result<T> {
     case success(data: T)
-    case failure(error: Error?)
+    case failure(error: String)
 }
 
 class BackendManager {
@@ -28,32 +28,23 @@ class BackendManager {
     // MARK: Requests
     
     public func requestNewRoute(completion: @escaping (Result<String>) -> Void) {
-        
-        self.request(.token) { (response) in
-            switch response.result {
+        self.request(.token) { (result: Result<NSDictionary>) in
+            switch result {
+            case .failure(let err):
+                completion(.failure(error: err))
             case .success(let data):
-                guard let json = data as? NSDictionary, let token = json.object(forKey: "token") as? String else {
-                    completion(.failure(error: nil))
-                    break
-                }
-                completion(.success(data: token))
-            case .failure(let error): print(error)
-                completion(.failure(error: error))
+                completion(self.token(from: data))
             }
         }
     }
     
     public func fetchRoute(token: String, completion: @escaping (Result<Route>) -> Void) {
-        self.request(.route(token: token)) { (response) in
-            switch response.result {
+        self.request(.route(token: token)) { (result: Result<NSArray>) in
+            switch result {
+            case .failure(let err):
+                completion(.failure(error: err))
             case .success(let data):
-                guard let json = data as? NSArray else {
-                    return completion(.failure(error: nil))
-                }
-                let route = Route(json: json)
-                return completion(.success(data: route))
-            case .failure(let error):
-                completion(.failure(error: error))
+                completion(self.route(from: data))
             }
         }
     }
@@ -67,15 +58,33 @@ class BackendManager {
     
     private func headers() -> [String: String] {
         return [
-            "x-api-key": "Ohe0CvYvMc86pJfv7k6u"
+            "x-api-key": self.secret
         ]
     }
     
-    private func request(_ endpoint: EndPoint, completion: @escaping (DataResponse<Any>) -> Void) {
+    private func request<T>(_ endpoint: EndPoint, completion: @escaping (Result<T>) -> Void) {
         let url = self.domain + endpoint.path
         Alamofire.request(url, method: endpoint.method, headers: self.headers()).responseJSON { (response) in
-            completion(response)
+            switch response.result {
+            case .failure(let error):
+                completion(.failure(error: error.localizedDescription))
+            case .success(let value):
+                guard let json = value as? T else {
+                    return completion(.failure(error: "Could not read response"))
+                }
+                completion(.success(data: json))
+            }
         }
+    }
+    
+    private func token(from json: NSDictionary) -> Result<String> {
+        guard let token = json.object(forKey: "token") as? String else { return .failure(error: "Could not read token") }
+        return .success(data: token)
+    }
+    
+    private func route(from json: NSArray) -> Result<Route> {
+        let route = Route(json: json)
+        return .success(data: route)
     }
     
 }
