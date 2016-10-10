@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
-class RouteDetailsViewController: UIViewController {
+class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - PUBLIC -
     
@@ -26,4 +27,9 @@ class RouteDetailsViewController: UIViewController {
 
     private let route: Route
     
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
+    // MARK:
 }

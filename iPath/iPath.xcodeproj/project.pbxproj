@@ -16,6 +16,7 @@
 		5A48D0E11DAC2EBE0024BA0C /* RoutePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A48D0DE1DAC2EBE0024BA0C /* RoutePickerViewController.xib */; };
 		5A48D0E51DAC2F1E0024BA0C /* RouteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A48D0E31DAC2F1E0024BA0C /* RouteDetailsViewController.swift */; };
 		5A48D0E61DAC2F1E0024BA0C /* RouteDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A48D0E41DAC2F1E0024BA0C /* RouteDetailsViewController.xib */; };
+		5A48D0E81DAC2FA60024BA0C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A48D0E71DAC2FA60024BA0C /* MapKit.framework */; };
 		5AE846561DAAE32C002A4C1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE846551DAAE32C002A4C1D /* AppDelegate.swift */; };
 		5AE8466E1DAAE38A002A4C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846681DAAE38A002A4C1D /* Assets.xcassets */; };
 		5AE8466F1DAAE38A002A4C1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846691DAAE38A002A4C1D /* LaunchScreen.storyboard */; };
@@ -30,6 +31,7 @@
 		5A48D0DE1DAC2EBE0024BA0C /* RoutePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RoutePickerViewController.xib; sourceTree = "<group>"; };
 		5A48D0E31DAC2F1E0024BA0C /* RouteDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteDetailsViewController.swift; sourceTree = "<group>"; };
 		5A48D0E41DAC2F1E0024BA0C /* RouteDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RouteDetailsViewController.xib; sourceTree = "<group>"; };
+		5A48D0E71DAC2FA60024BA0C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5AE846521DAAE32C002A4C1D /* iPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE846551DAAE32C002A4C1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AE846681DAAE38A002A4C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A48D0E81DAC2FA60024BA0C /* MapKit.framework in Frameworks */,
 				474B6CD6EA1F914C16F6C373 /* Pods_iPath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,9 +68,9 @@
 		5A48D0DB1DAC2EBE0024BA0C /* RoutePickerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5A48D0DC1DAC2EBE0024BA0C /* RoutePickerViewController+TableView.swift */,
 				5A48D0DD1DAC2EBE0024BA0C /* RoutePickerViewController.swift */,
 				5A48D0DE1DAC2EBE0024BA0C /* RoutePickerViewController.xib */,
+				5A48D0DC1DAC2EBE0024BA0C /* RoutePickerViewController+TableView.swift */,
 			);
 			path = RoutePickerViewController;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 		F6DDFCEF40F0DB2715E46957 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A48D0E71DAC2FA60024BA0C /* MapKit.framework */,
 				C7F5FF8BEB31991F05C3813C /* Pods_iPath.framework */,
 			);
 			name = Frameworks;
