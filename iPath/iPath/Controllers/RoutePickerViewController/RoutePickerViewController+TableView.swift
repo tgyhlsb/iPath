@@ -51,6 +51,7 @@ extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let route = self.route(for: indexPath) else { return }
         self.selectRoute(route, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: Helpers
