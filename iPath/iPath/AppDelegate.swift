@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let backend = BackendManager(domain: "https://wingz-hiring-test.herokuapp.com", secret: "Ohe0CvYvMc86pJfv7k6u")
         
-        let rootViewController = RootViewController(backend: backend)
+        let rootViewController = RoutePickerViewController(backend: backend)
         let navigationController = UINavigationController(rootViewController: rootViewController)
         
         self.window = UIWindow()

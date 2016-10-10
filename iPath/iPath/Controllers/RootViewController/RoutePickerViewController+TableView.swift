@@ -1,5 +1,5 @@
 //
-//  RootViewController+TableView.swift
+//  RoutePickerViewController+TableView.swift
 //  iPath
 //
 //  Created by Tanguy Hélesbeux on 10/10/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension RootViewController: UITableViewDelegate, UITableViewDataSource {
+extension RoutePickerViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - PUBLIC -
     

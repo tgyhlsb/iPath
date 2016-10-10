@@ -1,5 +1,5 @@
 //
-//  RootViewController.swift
+//  RoutePickerViewController.swift
 //  iPath
 //
 //  Created by Tanguy Hélesbeux on 09/10/2016.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class RootViewController: UIViewController {
+class RoutePickerViewController: UIViewController {
 
     // MARK: - PUBLIC -
     
     public init(backend: BackendManager) {
         self.backend = backend
-        super.init(nibName: "RootViewController", bundle: nil)
+        super.init(nibName: "RoutePickerViewController", bundle: nil)
     }
     
     @available(*, unavailable)
@@ -29,7 +29,7 @@ class RootViewController: UIViewController {
     private let backend: BackendManager
     
     private lazy var addButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RootViewController.addButtonTouchUpInside(_:)))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RoutePickerViewController.addButtonTouchUpInside(_:)))
     }()
     
     // MARK: IBOutlets
