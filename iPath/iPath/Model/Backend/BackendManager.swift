@@ -27,7 +27,7 @@ class BackendManager {
     
     // MARK: Requests
     
-    public func requestNewRoute(completion: @escaping (Result<String>) -> Void) {
+    public func createRoute(completion: @escaping (Result<String>) -> Void) {
         self.request(.token) { (result: Result<NSDictionary>) in
             switch result {
             case .failure(let err):
@@ -83,7 +83,9 @@ class BackendManager {
     }
     
     private func route(from json: NSArray) -> Result<Route> {
-        let route = Route(json: json)
+        guard let route = Route(json: json) else {
+            return .failure(error: "Failed to instantiate Route.")
+        }
         return .success(data: route)
     }
     

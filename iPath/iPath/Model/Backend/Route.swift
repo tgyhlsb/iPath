@@ -31,9 +31,18 @@ class Route {
     
     public let places: [Place]
     
+    public var start: Place {
+        return self.places.first!
+    }
+    
+    public var end: Place {
+        return self.places.last!
+    }
+    
     // MARK: - INTERNAL -
     
-    internal init(json: NSArray) {
+    internal init?(json: NSArray) {
+        guard json.count >= 2 else { return nil }
         self.places = json.map { Place(data: $0 as! NSDictionary) }
     }
     
