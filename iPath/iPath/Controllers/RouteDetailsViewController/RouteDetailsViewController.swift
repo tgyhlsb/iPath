@@ -46,7 +46,8 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     private func initialize(for route: Route) {
         self.title = self.title(from: route)
-        self.mapView.add(self.overlay(from: route.places))
+        self.mapView.add(self.overlay(from: route))
+        self.mapView.addAnnotations(self.annotations(for: route))
     }
     
     // MARK: Helpers
@@ -62,11 +63,23 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         self.mapView.setRegion(region, animated: animated)
     }
     
-    private func overlay(from places: [Route.Place]) -> MKPolyline {
-        let coordinates = places.map { place in
+    private func overlay(from route: Route) -> MKPolyline {
+        let coordinates = route.places.map { place in
             return CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
         }
         return MKPolyline(coordinates: coordinates, count: coordinates.count)
+    }
+    
+    private func annotations(for route: Route) -> [MKAnnotation] {
+        let startAnnotation = MKPointAnnotation()
+        startAnnotation.coordinate = CLLocationCoordinate2D(latitude: route.start.latitude, longitude: route.start.longitude)
+        startAnnotation.title = route.start.name
+        
+        let endAnnotation = MKPointAnnotation()
+        endAnnotation.coordinate = CLLocationCoordinate2D(latitude: route.end.latitude, longitude: route.end.longitude)
+        endAnnotation.title = route.end.name
+        
+        return [startAnnotation, endAnnotation]
     }
     
     private func region(from route: Route) -> MKCoordinateRegion? {
