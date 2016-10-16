@@ -13,9 +13,8 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - PUBLIC -
     
-    public init(route: Route, backend: BackendManager) {
+    public init(route: Route) {
         self.route = route
-        self.backend = backend
         super.init(nibName: "RouteDetailsViewController", bundle: nil)
     }
     
@@ -27,7 +26,6 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     // MARK: - PRIVATE -
 
     private let route: Route
-    private let backend: BackendManager
     
     // MARK: IBOutlets
     
@@ -40,12 +38,7 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         self.mapView.delegate = self
         self.initialize(for: self.route)
         
-        self.backend.fetchMap(name: "map1.json") { (result) in
-            switch result {
-            case .failure(let err): NSLog(err)
-            case .success(let map): self.processOtherRoutes(in: map)
-            }
-        }
+        self.processOtherPath(for: self.route)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,10 +58,12 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         return "\(route.places.count) places"
     }
     
-    private func processOtherRoutes(in map: Map) {
-        print(map.distance(of: self.route.places))
-        let placesExceptStartEnd = Array(self.route.places[1..<self.route.places.count - 1])
-        if let alternativePath = map.findPaths(from: self.route.start, to: self.route.end, exclude: placesExceptStartEnd) {
+    private func processOtherPath(for route: Route) {
+        var places = route.places
+        places.remove(route.start)
+        places.remove(route.end)
+        
+        if let alternativePath = route.map.findPaths(from: route.start, to: route.end, exclude: places) {
             self.mapView.add(self.overlay(from: alternativePath))
         }
     }

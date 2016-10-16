@@ -27,7 +27,7 @@ class MapPickerViewController: UIViewController {
     internal var maps = [Map]()
     
     internal func selectMap(_ map: Map, animated: Bool) {
-        let destination = RoutePickerViewController(backend: self.backend)
+        let destination = RoutePickerViewController(map: map, backend: self.backend)
         self.navigationController?.pushViewController(destination, animated: animated)
     }
     
@@ -56,6 +56,7 @@ class MapPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Maps"
         self.initializeTableView()
         self.fetchList()
     }

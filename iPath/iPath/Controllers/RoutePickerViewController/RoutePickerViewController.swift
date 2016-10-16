@@ -12,7 +12,8 @@ class RoutePickerViewController: UIViewController {
 
     // MARK: - PUBLIC -
     
-    public init(backend: BackendManager) {
+    public init(map: Map, backend: BackendManager) {
+        self.map = map
         self.backend = backend
         super.init(nibName: "RoutePickerViewController", bundle: nil)
     }
@@ -25,13 +26,14 @@ class RoutePickerViewController: UIViewController {
     internal var routes = [Route]()
     
     internal func selectRoute(_ route: Route, animated: Bool) {
-        let destination = RouteDetailsViewController(route: route, backend: self.backend)
+        let destination = RouteDetailsViewController(route: route)
         self.navigationController?.pushViewController(destination, animated: animated)
     }
     
     // MARK: - PRIVATE -
     
     private let backend: BackendManager
+    private let map: Map
     
     private lazy var addButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RoutePickerViewController.addButtonTouchUpInside(_:)))
@@ -45,7 +47,7 @@ class RoutePickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Routes"
+        self.title = "Routes of \(self.map.name)"
         self.navigationItem.rightBarButtonItem = self.addButton
         self.initializeTableView()
     }
@@ -62,7 +64,7 @@ class RoutePickerViewController: UIViewController {
         self.backend.createRoute() { result in
             switch result {
             case .success(let token):
-                self.backend.fetchRoute(token: token) { result in
+                self.backend.fetchRoute(map: self.map, token: token) { result in
                     switch result {
                     case .success(let route): return self.handleRequestSuccess(route)
                     case .failure(let error): return self.handleRequestFailure(error)
@@ -79,7 +81,7 @@ class RoutePickerViewController: UIViewController {
     }
     
     private func handleRequestFailure(_ error: String) {
-        print(error)
+        NSLog(error)
     }
     
 }

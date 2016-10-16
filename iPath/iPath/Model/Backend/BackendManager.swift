@@ -38,13 +38,13 @@ class BackendManager {
         }
     }
     
-    public func fetchRoute(token: String, completion: @escaping (Result<Route>) -> Void) {
+    public func fetchRoute(map: Map, token: String, completion: @escaping (Result<Route>) -> Void) {
         self.request(.route(token: token)) { (result: Result<NSArray>) in
             switch result {
             case .failure(let err):
                 completion(.failure(error: err))
             case .success(let data):
-                completion(self.route(token: token, from: data))
+                completion(self.route(map: map, token: token, from: data))
             }
         }
     }
@@ -105,8 +105,8 @@ class BackendManager {
         return .success(data: token)
     }
     
-    private func route(token: String, from json: NSArray) -> Result<Route> {
-        if let route = Route(token: token, json: json) {
+    private func route(map: Map, token: String, from json: NSArray) -> Result<Route> {
+        if let route = Route(map: map, token: token, json: json) {
             return .success(data: route)
         }
         return .failure(error: "Failed to instantiate Route.")

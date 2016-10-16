@@ -12,6 +12,7 @@ class Route: Equatable {
     
     // MARK: - PUBLIC -
     
+    public let map: Map
     public let token: String
     public let places: [Place]
     
@@ -31,8 +32,9 @@ class Route: Equatable {
     
     // MARK: - INTERNAL -
     
-    internal init?(token: String, json: NSArray) {
+    internal init?(map: Map, token: String, json: NSArray) {
         guard json.count >= 2 else { return nil }
+        self.map = map
         self.token = token
         self.places = json.map { Place(data: $0 as! NSDictionary) }
     }
