@@ -15,6 +15,7 @@ class Route: Equatable {
     public let map: Map
     public let token: String
     public let places: [Place]
+    public let distance: Double
     
     public var start: Place {
         return self.places.first!
@@ -37,6 +38,9 @@ class Route: Equatable {
         self.map = map
         self.token = token
         self.places = json.map { Place(data: $0 as! NSDictionary) }
+        
+        guard let distance = map.distance(of: self.places) else { return nil }
+        self.distance = distance
     }
     
     // MARK: - PRIVATE -

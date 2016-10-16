@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
+class RouteDetailsViewController: UIViewController {
     
     // MARK: - PUBLIC -
     
@@ -23,40 +23,43 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - INTERNAL -
     
+    internal var activePath: [Place]?
+    
     // MARK: - PRIVATE -
 
     private let route: Route
+    private var paths: [[Place]]!
     
     // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var segementedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: view life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Route"
         self.mapView.delegate = self
-        self.initialize(for: self.route)
         
+        self.initialize(for: self.route)
         self.processOtherPath(for: self.route)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.zoom(to: self.route, animated: animated)
+        self.selectPath(at: 0)
     }
     
     private func initialize(for route: Route) {
-        self.title = self.title(from: route)
-        self.mapView.add(self.overlay(from: route.places))
-        self.mapView.addAnnotations(self.annotations(for: route))
+        self.paths = [route.places]
+        self.initializeMap(for: route)
+        self.initializeTableView()
+        self.updateSegementedControl(for: [route.places], map: route.map, animated: false)
     }
     
     // MARK: Helpers
-    
-    private func title(from route: Route) -> String {
-        return "\(route.places.count) places"
-    }
     
     private func processOtherPath(for route: Route) {
         var places = route.places
@@ -64,60 +67,31 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         places.remove(route.end)
         
         if let alternativePath = route.map.findPaths(from: route.start, to: route.end, exclude: places) {
-            self.mapView.add(self.overlay(from: alternativePath))
+            self.paths.append(alternativePath)
+            self.updateSegementedControl(for: self.paths, map: route.map, animated: false)
         }
     }
     
-    // MARK: - MapView
-    
-    private func zoom(to route: Route, animated: Bool) {
-        guard let region = self.region(from: route) else { return }
-        self.mapView.setRegion(region, animated: animated)
-    }
-    
-    private func overlay(from places: [Place]) -> MKPolyline {
-        let coordinates = places.map { place in
-            return CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+    private func updateSegementedControl(for paths: [[Place]], map: Map, animated: Bool) {
+        self.segementedControl.removeAllSegments()
+        for (index, path) in paths.enumerated() {
+            let distance = map.distance(of: path)
+            let title = distance != nil ? "\(distance! * 10) m" : "Unknown distance"
+            self.segementedControl.insertSegment(withTitle: title, at: index, animated: animated)
         }
-        return MKPolyline(coordinates: coordinates, count: coordinates.count)
+        self.segementedControl.sizeToFit()
     }
     
-    private func annotations(for route: Route) -> [MKAnnotation] {
-        let startAnnotation = MKPointAnnotation()
-        startAnnotation.coordinate = CLLocationCoordinate2D(latitude: route.start.latitude, longitude: route.start.longitude)
-        startAnnotation.title = route.start.name
-        
-        let endAnnotation = MKPointAnnotation()
-        endAnnotation.coordinate = CLLocationCoordinate2D(latitude: route.end.latitude, longitude: route.end.longitude)
-        endAnnotation.title = route.end.name
-        
-        return [startAnnotation, endAnnotation]
+    private func selectPath(at index: Int) {
+        self.activePath = self.paths[index]
+        self.segementedControl.selectedSegmentIndex = index
+        self.reloadTableView()
+        self.setOverlay(for: self.activePath!)
     }
     
-    private func region(from route: Route) -> MKCoordinateRegion? {
-        guard let first = route.places.first else { return nil }
-        var maxLat = first.latitude
-        var maxLong = first.longitude
-        var minLat = maxLat
-        var minLong = maxLong
-        for place in route.places {
-            maxLat = max(maxLat, place.latitude)
-            maxLong = max(maxLong, place.longitude)
-            minLat = min(minLat, place.latitude)
-            minLong = min(minLong, place.longitude)
-        }
-        let span = MKCoordinateSpan(latitudeDelta: maxLat - minLat, longitudeDelta: maxLong - minLong)
-        let center = CLLocationCoordinate2D(latitude: minLat + span.latitudeDelta, longitude: minLong + span.longitudeDelta)
-        return MKCoordinateRegion(center: center, span: span)
-    }
-    
-    // MARK: MKMapViewDelegate
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.lineWidth = 3
-        renderer.strokeColor = UIColor.red
-        renderer.lineCap = .round
-        return renderer
+    // MARK: Handlers
+
+    @IBAction func segmentedControlHandler(_ sender: UISegmentedControl) {
+        self.selectPath(at: sender.selectedSegmentIndex)
     }
 }
