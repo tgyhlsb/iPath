@@ -55,7 +55,7 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     private func initialize(for route: Route) {
         self.title = self.title(from: route)
-        self.mapView.add(self.overlay(from: route))
+        self.mapView.add(self.overlay(from: route.places))
         self.mapView.addAnnotations(self.annotations(for: route))
     }
     
@@ -68,7 +68,9 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     private func processOtherRoutes(in map: Map) {
         print(map.distance(of: self.route.places))
         let placesExceptStartEnd = Array(self.route.places[1..<self.route.places.count - 1])
-        map.findPaths(from: self.route.start, to: self.route.end, exclude: placesExceptStartEnd)
+        if let alternativePath = map.findPaths(from: self.route.start, to: self.route.end, exclude: placesExceptStartEnd) {
+            self.mapView.add(self.overlay(from: alternativePath))
+        }
     }
     
     // MARK: - MapView
@@ -78,8 +80,8 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         self.mapView.setRegion(region, animated: animated)
     }
     
-    private func overlay(from route: Route) -> MKPolyline {
-        let coordinates = route.places.map { place in
+    private func overlay(from places: [Place]) -> MKPolyline {
+        let coordinates = places.map { place in
             return CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
         }
         return MKPolyline(coordinates: coordinates, count: coordinates.count)
