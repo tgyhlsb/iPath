@@ -66,7 +66,9 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func processOtherRoutes(in map: Map) {
-        map.findPaths(from: self.route.start, to: self.route.end, count: 0)
+        print(map.distance(of: self.route.places))
+        let placesExceptStartEnd = Array(self.route.places[1..<self.route.places.count - 1])
+        map.findPaths(from: self.route.start, to: self.route.end, exclude: placesExceptStartEnd)
     }
     
     // MARK: - MapView

@@ -23,7 +23,7 @@ struct Place: Equatable {
     public let id: Int
     public let latitude, longitude: Double
     public let name: String
-    public let links: [Link]?
+    public let links: [Int: Link]?
     
     public init(data: NSDictionary) {
         self.id = data.parse(key: "id", defaultValue: 0)
@@ -32,7 +32,12 @@ struct Place: Equatable {
         self.name = data.parse(key: "name", defaultValue: "Unknown")
         
         if let linksData = data.object(forKey: "links") as? [NSDictionary] {
-            self.links = linksData.map { Link(data: $0) }
+            var links = [Int: Link]()
+            for linkData in linksData {
+                let link = Link(data: linkData)
+                links[link.destination] = link
+            }
+            self.links = links
         } else {
             self.links = nil
         }

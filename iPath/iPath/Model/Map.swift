@@ -13,31 +13,50 @@ class Map {
     // MARK: - PUBLIC -
     
     public let name: String
-    public let places: [Place]
+    public let places: [Int: Place]
     
     public init(name: String, data: NSArray) {
         self.name = name
-        self.places = data.map { Place(data: $0 as! NSDictionary) }
+        
+        var places = [Int: Place]()
+        for info in data {
+            let place = Place(data: info as! NSDictionary)
+            places[place.id] = place
+        }
+        self.places = places
     }
     
-    public func findPaths(from origin: Place, to destination: Place, count: Int) {
-        guard let origin = self.rectrieve(place: origin, in: self.places),
-            let destination = self.rectrieve(place: destination, in: self.places) else { return }
+    public func distance(of path: [Place]) -> Double? {
+        guard path.count >= 2 else { return nil }
+        
+        var distance = 0.0
+        for (index, step) in path[0..<path.count-1].enumerated() {
+            guard let place = self.places[step.id], let links = place.links else { return nil }
+            let next = path[index+1]
+            guard let link = links[next.id] else { return nil }
+            distance += link.distance
+        }
+        return distance
+    }
+    
+    public func findPaths(from origin: Place, to destination: Place, exclude: [Place]) -> [Place]? {
+        let excludeIds = exclude.map { $0.id }
+        let places = Array(self.places.values.filter { !excludeIds.contains($0.id) })
+        
+        guard let origin = self.rectrieve(place: origin, in: places), let destination = self.rectrieve(place: destination, in: places) else { return nil }
         
         var distances = [Int: Double]()
-        var places = [Int: Place]()
         var previous = [Int: Int]()
-        for place in self.places {
+        for (_, place) in self.places {
             distances[place.id] = DBL_MAX
-            places[place.id] = place
         }
         distances[origin.id] = 0
         
-        var unvisited = self.places
+        var unvisited = places
         var current: Place? = origin
         while current != nil {
             
-            for link in current!.links ?? [] {
+            for link in current!.links!.values {
                 let distance = distances[current!.id]! + link.distance
                 if distance < distances[link.destination]! {
                     distances[link.destination] = distance
@@ -55,12 +74,14 @@ class Map {
             current = self.minimum(distances, unvisited)
         }
         
-        print(distances[destination.id])
+        var path = [destination]
         var iterator = previous[destination.id]
         while iterator != nil {
-            print(iterator!)
+            guard let place = self.places[iterator!] else { return nil }
+            path.append(place)
             iterator = previous[iterator!]
         }
+        return path.reversed()
     }
     
     // MARK: - INTERNAL -
