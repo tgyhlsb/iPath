@@ -13,8 +13,9 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - PUBLIC -
     
-    public init(route: Route) {
+    public init(route: Route, backend: BackendManager) {
         self.route = route
+        self.backend = backend
         super.init(nibName: "RouteDetailsViewController", bundle: nil)
     }
     
@@ -26,6 +27,7 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     // MARK: - PRIVATE -
 
     private let route: Route
+    private let backend: BackendManager
     
     // MARK: IBOutlets
     
@@ -37,6 +39,13 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         self.mapView.delegate = self
         self.initialize(for: self.route)
+        
+        self.backend.fetchMap(name: "map1.json") { (result) in
+            switch result {
+            case .failure(let err): NSLog(err)
+            case .success(let map): self.processOtherRoutes(in: map)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,6 +63,10 @@ class RouteDetailsViewController: UIViewController, MKMapViewDelegate {
     
     private func title(from route: Route) -> String {
         return "\(route.places.count) places"
+    }
+    
+    private func processOtherRoutes(in map: Map) {
+        map.findPaths(from: self.route.start, to: self.route.end, count: 0)
     }
     
     // MARK: - MapView

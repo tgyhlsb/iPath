@@ -12,23 +12,6 @@ class Route: Equatable {
     
     // MARK: - PUBLIC -
     
-    public struct Place {
-        let id: Int
-        let latitude, longitude: Double
-        let name: String
-        
-        internal init(data: NSDictionary) {
-            self.id = Place.parse(data, key: "id", defaultValue: 0)
-            self.latitude = Place.parse(data, key: "latitude", defaultValue: 0)
-            self.longitude = Place.parse(data, key: "longitude", defaultValue: 0)
-            self.name = Place.parse(data, key: "name", defaultValue: "Unknown")
-        }
-        
-        static func parse<T>(_ data: NSDictionary, key: String, defaultValue: T) -> T {
-            return data.object(forKey: key) as? T ?? defaultValue
-        }
-    }
-    
     public let token: String
     public let places: [Place]
     

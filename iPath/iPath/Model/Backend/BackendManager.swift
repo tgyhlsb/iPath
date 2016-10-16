@@ -49,6 +49,18 @@ class BackendManager {
         }
     }
     
+    public func fetchMap(name: String, completion: @escaping (Result<Map>) -> Void) {
+        self.request(.mapDetail(name: name)) { (result: Result<NSArray>) in
+            switch result {
+            case .failure(let err):
+                completion(.failure(error: err))
+            case .success(let json):
+                let map = Map(name: name, data: json)
+                completion(.success(data: map))
+            }
+        }
+    }
+    
     // MARK: - INTERNAL -
     
     // MARK: - PRIVATE -
@@ -83,10 +95,10 @@ class BackendManager {
     }
     
     private func route(token: String, from json: NSArray) -> Result<Route> {
-        guard let route = Route(token: token, json: json) else {
-            return .failure(error: "Failed to instantiate Route.")
+        if let route = Route(token: token, json: json) {
+            return .success(data: route)
         }
-        return .success(data: route)
+        return .failure(error: "Failed to instantiate Route.")
     }
     
 }
