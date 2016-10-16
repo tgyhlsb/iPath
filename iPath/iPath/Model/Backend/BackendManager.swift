@@ -49,6 +49,17 @@ class BackendManager {
         }
     }
     
+    public func listMaps(completion: @escaping (Result<[String]>) -> Void) {
+        self.request(.mapList) { (result: Result<NSArray>) in
+            switch result {
+            case .failure(let err):
+                completion(.failure(error: err))
+            case .success(let json):
+                completion(.success(data: json as! [String]))
+            }
+        }
+    }
+    
     public func fetchMap(name: String, completion: @escaping (Result<Map>) -> Void) {
         self.request(.mapDetail(name: name)) { (result: Result<NSArray>) in
             switch result {

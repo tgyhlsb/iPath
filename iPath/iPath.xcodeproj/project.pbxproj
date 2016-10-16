@@ -23,6 +23,11 @@
 		5AD82AF81DB407A4005538F0 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82AF71DB407A4005538F0 /* Place.swift */; };
 		5AD82AFA1DB408DB005538F0 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82AF91DB408DB005538F0 /* Map.swift */; };
 		5AD82AFC1DB40B43005538F0 /* NSDictionary+Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82AFB1DB40B43005538F0 /* NSDictionary+Parse.swift */; };
+		5AD82B011DB42ABA005538F0 /* MapPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82AFF1DB42ABA005538F0 /* MapPickerViewController.swift */; };
+		5AD82B021DB42ABA005538F0 /* MapPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD82B001DB42ABA005538F0 /* MapPickerViewController.xib */; };
+		5AD82B041DB42AF1005538F0 /* MapPickerViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82B031DB42AF1005538F0 /* MapPickerViewController+TableView.swift */; };
+		5AD82B081DB42B90005538F0 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD82B061DB42B90005538F0 /* MapTableViewCell.swift */; };
+		5AD82B091DB42B90005538F0 /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AD82B071DB42B90005538F0 /* MapTableViewCell.xib */; };
 		5AE846561DAAE32C002A4C1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE846551DAAE32C002A4C1D /* AppDelegate.swift */; };
 		5AE8466E1DAAE38A002A4C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846681DAAE38A002A4C1D /* Assets.xcassets */; };
 		5AE8466F1DAAE38A002A4C1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AE846691DAAE38A002A4C1D /* LaunchScreen.storyboard */; };
@@ -44,6 +49,11 @@
 		5AD82AF71DB407A4005538F0 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		5AD82AF91DB408DB005538F0 /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		5AD82AFB1DB40B43005538F0 /* NSDictionary+Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDictionary+Parse.swift"; sourceTree = "<group>"; };
+		5AD82AFF1DB42ABA005538F0 /* MapPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPickerViewController.swift; sourceTree = "<group>"; };
+		5AD82B001DB42ABA005538F0 /* MapPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapPickerViewController.xib; sourceTree = "<group>"; };
+		5AD82B031DB42AF1005538F0 /* MapPickerViewController+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MapPickerViewController+TableView.swift"; sourceTree = "<group>"; };
+		5AD82B061DB42B90005538F0 /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		5AD82B071DB42B90005538F0 /* MapTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		5AE846521DAAE32C002A4C1D /* iPath.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPath.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AE846551DAAE32C002A4C1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5AE846681DAAE38A002A4C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,8 +90,8 @@
 			isa = PBXGroup;
 			children = (
 				5A48D0DD1DAC2EBE0024BA0C /* RoutePickerViewController.swift */,
-				5A48D0DE1DAC2EBE0024BA0C /* RoutePickerViewController.xib */,
 				5A48D0DC1DAC2EBE0024BA0C /* RoutePickerViewController+TableView.swift */,
+				5A48D0DE1DAC2EBE0024BA0C /* RoutePickerViewController.xib */,
 			);
 			path = RoutePickerViewController;
 			sourceTree = "<group>";
@@ -100,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				5A48D0EA1DAC316E0024BA0C /* Reusable.swift */,
+				5AD82B051DB42B7E005538F0 /* MapTableViewCell */,
 				5A48D0EC1DAC31830024BA0C /* RouteTableViewCell */,
 			);
 			path = TableViewCells;
@@ -112,6 +123,25 @@
 				5A48D0EE1DAC31A50024BA0C /* RouteTableViewCell.xib */,
 			);
 			path = RouteTableViewCell;
+			sourceTree = "<group>";
+		};
+		5AD82AFE1DB42AA5005538F0 /* MapPickerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5AD82AFF1DB42ABA005538F0 /* MapPickerViewController.swift */,
+				5AD82B031DB42AF1005538F0 /* MapPickerViewController+TableView.swift */,
+				5AD82B001DB42ABA005538F0 /* MapPickerViewController.xib */,
+			);
+			path = MapPickerViewController;
+			sourceTree = "<group>";
+		};
+		5AD82B051DB42B7E005538F0 /* MapTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5AD82B061DB42B90005538F0 /* MapTableViewCell.swift */,
+				5AD82B071DB42B90005538F0 /* MapTableViewCell.xib */,
+			);
+			path = MapTableViewCell;
 			sourceTree = "<group>";
 		};
 		5AE846491DAAE32C002A4C1D = {
@@ -157,6 +187,7 @@
 		5AE846721DAAE3A3002A4C1D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5AD82AFE1DB42AA5005538F0 /* MapPickerViewController */,
 				5A48D0DB1DAC2EBE0024BA0C /* RoutePickerViewController */,
 				5A48D0E21DAC2EEE0024BA0C /* RouteDetailsViewController */,
 			);
@@ -267,7 +298,9 @@
 				5A48D0E11DAC2EBE0024BA0C /* RoutePickerViewController.xib in Resources */,
 				5AE8466F1DAAE38A002A4C1D /* LaunchScreen.storyboard in Resources */,
 				5A48D0E61DAC2F1E0024BA0C /* RouteDetailsViewController.xib in Resources */,
+				5AD82B091DB42B90005538F0 /* MapTableViewCell.xib in Resources */,
 				5A48D0F01DAC31A50024BA0C /* RouteTableViewCell.xib in Resources */,
+				5AD82B021DB42ABA005538F0 /* MapPickerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +370,10 @@
 				5AD82AFA1DB408DB005538F0 /* Map.swift in Sources */,
 				5A48D0E01DAC2EBE0024BA0C /* RoutePickerViewController.swift in Sources */,
 				5AD82AF81DB407A4005538F0 /* Place.swift in Sources */,
+				5AD82B081DB42B90005538F0 /* MapTableViewCell.swift in Sources */,
+				5AD82B041DB42AF1005538F0 /* MapPickerViewController+TableView.swift in Sources */,
 				5AE846561DAAE32C002A4C1D /* AppDelegate.swift in Sources */,
+				5AD82B011DB42ABA005538F0 /* MapPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
