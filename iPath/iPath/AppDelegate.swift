@@ -16,9 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        let backend = BackendManager(domain: "https://wingz-hiring-test.herokuapp.com", secret: "Ohe0CvYvMc86pJfv7k6u")
+        
+        let rootViewController = MapPickerViewController(backend: backend)
+        let navigationController = UINavigationController(rootViewController: rootViewController)
         
         self.window = UIWindow()
-        self.window?.rootViewController = RootViewController()
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
         return true
