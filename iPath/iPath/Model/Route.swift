@@ -37,7 +37,15 @@ class Route: Equatable {
         guard json.count >= 2 else { return nil }
         self.map = map
         self.token = token
-        self.places = json.map { Place(data: $0 as! NSDictionary) }
+        
+        var places = [Place]()
+        for data in json {
+            guard let info = data as? NSDictionary else { return nil }
+            let id = info.parse(key: "id", defaultValue: 0)
+            guard let place = map.places[id] else { return nil }
+            places.append(place)
+        }
+        self.places = places
         
         guard let distance = map.distance(of: self.places) else { return nil }
         self.distance = distance

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Place: Equatable {
+class Place: Equatable {
     
     public struct Link {
         let destination: Int
