@@ -66,7 +66,7 @@ class RouteDetailsViewController: UIViewController {
         places.remove(route.start)
         places.remove(route.end)
         
-        if let alternativePath = route.map.findPaths(from: route.start, to: route.end, exclude: places) {
+        if let alternativePath = route.map.path(from: route.start, to: route.end, exclude: places) {
             self.paths.append(alternativePath)
             self.updateSegementedControl(for: self.paths, map: route.map, animated: false)
         }

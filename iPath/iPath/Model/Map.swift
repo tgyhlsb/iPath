@@ -39,7 +39,7 @@ class Map {
         return distance
     }
     
-    public func findPaths(from origin: Place, to destination: Place, exclude: [Place]) -> [Place]? {
+    public func path(from origin: Place, to destination: Place, exclude: [Place]) -> [Place]? {
         let excludeIds = exclude.map { $0.id }
         let places = Array(self.places.values.filter { !excludeIds.contains($0.id) })
         
