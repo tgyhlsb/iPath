@@ -26,6 +26,13 @@ class Map {
         self.places = places
     }
     
+    /**
+     Evaluate the distance of the given path.
+     
+     - parameter path: Path to be evaluated as a list of `Place`
+     - returns: Distance as `Double` or `nil` if the distance can't be evaluated.
+ 
+    */
     public func distance(of path: [Place]) -> Double? {
         guard path.count >= 2 else { return nil }
         
@@ -39,6 +46,17 @@ class Map {
         return distance
     }
     
+    /**
+     Tries to find the shortest path from `origin` to `destination`. Places in `exclude` will be ignored.
+     Implementation based on Dijkstra's algorithm.
+     
+     - parameter origin: `Place` where the path must start.
+     - parameter destination: `Place` where the path must end.
+     - parameter exclude: `[Place]` list of places to ingore when looking for shortest path.
+     
+     - returns: The shortest paht as `[Place]` if one exists, `nil` othervwise.
+     
+    */
     public func path(from origin: Place, to destination: Place, exclude: [Place]) -> [Place]? {
         let excludeIds = exclude.map { $0.id }
         let places = Array(self.places.values.filter { !excludeIds.contains($0.id) })
