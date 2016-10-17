@@ -39,6 +39,12 @@ class RoutePickerViewController: UIViewController {
         return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(RoutePickerViewController.addButtonTouchUpInside(_:)))
     }()
     
+    private lazy var loadingItem: UIBarButtonItem = {
+        let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        indicatorView.startAnimating()
+        return UIBarButtonItem(customView: indicatorView)
+    }()
+    
     // MARK: IBOutlets
 
     @IBOutlet weak var tableView: UITableView!
@@ -61,6 +67,7 @@ class RoutePickerViewController: UIViewController {
     // MARK: - Backend
     
     private func requestNewRoute() {
+        self.setLoading(true)
         self.backend.createRoute() { result in
             switch result {
             case .success(let token):
@@ -72,6 +79,7 @@ class RoutePickerViewController: UIViewController {
                 }
             case .failure(let error): return self.handleRequestFailure(error)
             }
+            self.setLoading(false)
         }
     }
     
@@ -82,6 +90,10 @@ class RoutePickerViewController: UIViewController {
     
     private func handleRequestFailure(_ error: String) {
         NSLog(error)
+    }
+    
+    private func setLoading(_ loading: Bool) {
+        self.navigationItem.rightBarButtonItem = loading ? self.loadingItem : self.addButton
     }
     
 }
